@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, NotFoundException, Param, Post } from '@nestjs/common';
 import {
   CreateNotificationSchema,
   NotificationDto,
@@ -6,6 +6,7 @@ import {
 import { UserId } from '../auth/auth';
 import { NotificationService } from './notification.service';
 import { validateSchema } from '../../utils';
+import { NotificationStatus } from '../../types';
 
 @Controller()
 export class NotificationController {
@@ -24,5 +25,22 @@ export class NotificationController {
     const params = { ...body, user: { id: userId } };
     validateSchema(CreateNotificationSchema, params);
     return this.notificationService.create(params);
+  }
+
+  @Post('notifications/:notificationId/retry')
+  async retry(@Param('notificationId') notificationId: string) {
+    let notification;
+    try {
+      notification = await this.notificationService.getById(notificationId);
+    } catch(e) {
+      throw new NotFoundException(`Notification ${notificationId} not found`);
+    }
+
+    const successLog = (notification.logs ?? []).find(log => log.status === NotificationStatus.SUCCESS);
+    if (successLog) {
+      throw new BadRequestException(`User already got notified with the same event`);
+    }
+
+    await this.notificationService.retry(notification);
   }
 }

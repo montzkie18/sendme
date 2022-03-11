@@ -9,7 +9,10 @@ import { pubsubClientProvider } from '../pubsub/pubsub.provider';
 import { SubscriptionModule } from '../subscriptions/subscription.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Notification, NotificationLog, User]), SubscriptionModule],
+  imports: [
+    TypeOrmModule.forFeature([Notification, NotificationLog, User]),
+    SubscriptionModule,
+  ],
   providers: [NotificationService, pubsubClientProvider],
   controllers: [NotificationController],
 })

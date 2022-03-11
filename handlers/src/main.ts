@@ -10,10 +10,10 @@ async function bootstrap() {
       projectId: 'com_trial_sendme',
       topics: {
         trigger_webhook: {
-          subscriptionId: 'webhook_subscription'
-        }
+          subscriptionId: 'webhook_subscription',
+        },
       },
-    })
+    }),
   });
 
   await app.startAllMicroservices();

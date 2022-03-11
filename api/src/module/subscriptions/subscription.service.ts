@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { QueryFailedError, Repository } from 'typeorm';
 import { CreateSubscriptionDto } from '../../dto/subscription.dto';
 import { Subscription } from '../../entity/Subscription';
 
@@ -18,8 +18,19 @@ export class SubscriptionService {
     });
   }
 
-  create(params: CreateSubscriptionDto) {
+  async create(params: CreateSubscriptionDto) {
     const subscription = this.subscriptionsRepo.create(params);
-    return this.subscriptionsRepo.save(subscription);
+    let result;
+    try {
+      result = await this.subscriptionsRepo.save(subscription);
+    } catch(e) {
+      console.log("Failed to create subscription", e.detail);
+      // postgres error codes: https://www.postgresql.org/docs/9.2/errcodes-appendix.html
+      if(e.code === '23505') { // unique_violation
+        throw new ConflictException(`Subscription already exists for event type: ${params.eventType}`);
+      }
+      throw new BadRequestException(`Failed to subscribe to event type: ${params.eventType}`);
+    }
+    return result;
   }
 }

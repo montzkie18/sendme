@@ -83,4 +83,17 @@ export const NotificationSnapshotSerializer = {
   },
   print: ({ user, eventId, eventType, eventMetadata }) =>
     JSON.stringify({ user, eventId, eventType, eventMetadata }, null, 2),
-}
+};
+
+export const NotificationLogSnapshotSerializer = {
+  test: (val: any) => {
+    return [,
+      'id',
+      'notification',
+      'status',
+      'dateCreated',
+    ].every((key) => !!val[key]);
+  },
+  print: ({ notification, status }) =>
+    JSON.stringify({ notification, status }, null, 2),
+};

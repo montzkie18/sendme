@@ -8,9 +8,10 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @EventPattern('trigger_webhook')
-  triggerWebhook(@Payload() message: Message): void {
-    const notification = JSON.parse(message.data.toString("utf-8"));
+  async triggerWebhook(@Payload() message: Message): Promise<void> {
+    const notification = JSON.parse(message.data.toString('utf-8'));
     console.log('Triggered webhook', notification);
+    await this.appService.triggerWebhook(notification);
     message.ack();
   }
 }

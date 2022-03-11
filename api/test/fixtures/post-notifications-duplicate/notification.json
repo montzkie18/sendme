@@ -1,0 +1,78 @@
+[
+    {
+        "id": "39560f68-d466-4fe5-bb5e-bcede7f5f24a",
+        "callbackUrl": "http://some-url-1.com",
+        "eventId": "invoice_paid_579c8d61f23fa4ca35e52da4",
+        "eventType": "INVOICES_PAID",
+        "eventMetadata": {
+          "id": "579c8d61f23fa4ca35e52da4",
+          "user_id": "c1d06b09-0d48-4479-9de4-84b69606601c",
+          "external_id": "invoice_123124123",
+          "status": "PENDING",
+          "merchant_name": "Xendit",
+          "merchant_profile_picture_url": "https://xnd-companies.s3.amazonaws.com/prod/1493610897264_473.png",
+          "amount": 50000,
+          "payer_email": "alfina@xendit.co",
+          "description": "This is a description",
+          "invoice_url": "https://invoice.xendit.co/web/invoices/595b6248c763ac05592e3eb4",
+          "expiry_date": "2020-01-31T11:20:01.017Z",
+          "available_banks": [
+            {
+              "bank_code": "MANDIRI",
+              "collection_type": "POOL",
+              "bank_account_number": "8860810000525",
+              "transfer_amount": 50000,
+              "bank_branch": "Virtual Account",
+              "account_holder_name": "LANSUR13"
+            },
+            {
+              "bank_code": "BRI",
+              "collection_type": "POOL",
+              "bank_account_number": "2621510002426",
+              "transfer_amount": 50000,
+              "bank_branch": "Virtual Account",
+              "account_holder_name": "LANSUR13"
+            },
+            {
+              "bank_code": "BNI",
+              "collection_type": "POOL",
+              "bank_account_number": "880810000689",
+              "transfer_amount": 50000,
+              "bank_branch": "Virtual Account",
+              "account_holder_name": "LANSUR13"
+            }
+          ],
+          "available_retail_outlets": [
+            {
+              "retail_outlet_name": "ALFAMART",
+              "payment_code": "ALFA123456",
+              "transfer_amount": 54000
+            }
+          ],
+          "available_paylaters": [
+            {
+              "paylater_type": "AKULAKU"
+            }
+          ],
+          "should_exclude_credit_card": false,
+          "should_send_email": false,
+          "created": "2020-01-01T14:00:00.306Z",
+          "updated": "2020-01-01T14:00:00.306Z",
+          "mid_label": "test-mid",
+          "currency": "IDR",
+          "paid_at": "2020-01-02T11:00:00.306Z",
+          "credit_card_charge_id": "579c8d61f23fa4ca35e52eas",
+          "payment_method": "BANK_TRANSFER",
+          "payment_channel": "BCA",
+          "payment_destination": "10002233222294375",
+          "success_redirect_url": "www.xendit.co",
+          "failure_redirect_url": "www.xendit.co",
+          "fixed_va": true,
+          "locale": "en"
+        },
+        "dateCreated": "2022-03-10 17:39:54.907359+00",
+        "user": {
+          "id": "c1d06b09-0d48-4479-9de4-84b69606601c"
+        }
+    }
+]

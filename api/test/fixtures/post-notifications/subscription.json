@@ -1,0 +1,12 @@
+[
+	{
+		"id": "39560f68-d466-4fe5-bb5e-bcede7f5f24a",
+		"callbackUrl": "https://eol0b5xxhwms1ed.m.pipedream.net",
+		"eventType": "INVOICES_PAID",
+		"dateCreated": "2022-03-10 17:39:54.907359+00",
+		"dateUpdated": "2022-03-10 17:39:54.907359+00",
+		"user" : {
+            "id": "c1d06b09-0d48-4479-9de4-84b69606601c"
+        }
+	}
+]

@@ -1,4 +1,9 @@
-import { Message, PubSub, Subscription, ClientConfig } from '@google-cloud/pubsub';
+import {
+  Message,
+  PubSub,
+  Subscription,
+  ClientConfig,
+} from '@google-cloud/pubsub';
 import { Logger } from '@nestjs/common';
 import { CustomTransportStrategy, Server } from '@nestjs/microservices';
 import { isError } from 'lodash';
