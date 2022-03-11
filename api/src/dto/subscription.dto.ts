@@ -21,5 +21,7 @@ export const SubscriptionSchema = Type.Intersect([
   }),
 ]);
 
+export const SubscriptionsSchema = Type.Array(SubscriptionSchema);
+
 export type CreateSubscriptionDto = Static<typeof CreateSubscriptionSchema>;
 export type SubscriptionDto = Static<typeof SubscriptionSchema>;

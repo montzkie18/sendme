@@ -10,22 +10,34 @@ import {
 import {
   CreateNotificationSchema,
   NotificationDto,
+  NotificationSchema,
+  NotificationsSchema,
 } from '../../dto/notification.dto';
 import { UserId } from '../auth/auth';
 import { NotificationService } from './notification.service';
 import { validateSchema } from '../../utils';
 import { NotificationStatus } from '../../types';
+import { ApiBody, ApiCreatedResponse, ApiOkResponse, ApiParam } from '@nestjs/swagger';
 
 @Controller()
 export class NotificationController {
   constructor(private readonly notificationService: NotificationService) {}
 
   @Get('notifications')
+  @ApiOkResponse({
+    schema: NotificationsSchema
+  })
   async getByUser(@UserId() userId: string): Promise<NotificationDto[]> {
     return this.notificationService.getByUser(userId);
   }
 
   @Post('notifications')
+  @ApiBody({
+    schema: CreateNotificationSchema
+  })
+  @ApiCreatedResponse({
+    schema: NotificationSchema
+  })
   create(
     @UserId() userId: string,
     @Body() body: any,
@@ -36,6 +48,10 @@ export class NotificationController {
   }
 
   @Post('notifications/:notificationId/retry')
+  @ApiParam({
+    name: 'notificationId',
+    type: String,
+  })
   async retry(@Param('notificationId') notificationId: string) {
     let notification;
     try {

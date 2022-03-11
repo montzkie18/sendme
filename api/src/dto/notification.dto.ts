@@ -20,5 +20,7 @@ export const NotificationSchema = Type.Intersect([
   }),
 ]);
 
+export const NotificationsSchema = Type.Array(NotificationSchema);
+
 export type CreateNotificationDto = Static<typeof CreateNotificationSchema>;
 export type NotificationDto = Static<typeof NotificationSchema>;
