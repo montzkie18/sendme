@@ -23,13 +23,14 @@ export class Notification {
   @OneToMany(() => NotificationLog, (log) => log.notification)
   logs: NotificationLog[];
 
-  @Column()
+  @Column({
+    unique: true,
+  })
   eventId: string;
 
   @Column({
     type: 'enum',
     enum: EventType,
-    unique: true,
   })
   eventType: EventType;
 

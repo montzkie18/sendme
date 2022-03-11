@@ -38,12 +38,8 @@ export class NotificationService {
   }
 
   async getUserSubscriptionForEventType(userId: string, eventType: EventType) {
-    const subscriptions = await this.subscriptionService.getByUser(
-      userId,
-    );
-    const subscription = subscriptions.find(
-      (s) => s.eventType === eventType,
-    );
+    const subscriptions = await this.subscriptionService.getByUser(userId);
+    const subscription = subscriptions.find((s) => s.eventType === eventType);
     if (!subscription) {
       throw new BadRequestException(
         `User ${userId} is not subscribed to ${eventType}`,
@@ -64,11 +60,14 @@ export class NotificationService {
       );
     }
 
-    const subscription = await this.getUserSubscriptionForEventType(params.user.id, params.eventType);
+    const subscription = await this.getUserSubscriptionForEventType(
+      params.user.id,
+      params.eventType,
+    );
 
     const notification = this.notificationsRepo.create(params);
     const result = await this.notificationsRepo.save(notification);
-    
+
     await this.pubsubClient.triggerWebhook({
       ...params,
       id: result.id,
@@ -79,10 +78,13 @@ export class NotificationService {
   }
 
   async retry(notification: Notification) {
-    const { callbackUrl } = await this.getUserSubscriptionForEventType(notification.user.id, notification.eventType);
+    const { callbackUrl } = await this.getUserSubscriptionForEventType(
+      notification.user.id,
+      notification.eventType,
+    );
     const { id, user, eventId, eventType, eventMetadata } = notification;
     await this.pubsubClient.triggerWebhook({
-      id, 
+      id,
       user,
       eventId,
       eventType,

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import {
   CreateSubscriptionSchema,
   SubscriptionDto,
@@ -24,5 +24,16 @@ export class SubscriptionController {
     const params = { ...body, user: { id: userId } };
     validateSchema(CreateSubscriptionSchema, params);
     return this.subscriptionService.create(params);
+  }
+
+  @Put('subscriptions/:eventType')
+  upsert(
+    @UserId() userId: string,
+    @Param("eventType") eventType: string,
+    @Body() body: any,
+  ): Promise<SubscriptionDto> {
+    const params = { ...body, eventType, user: { id: userId } };
+    validateSchema(CreateSubscriptionSchema, params);
+    return this.subscriptionService.upsert(params);
   }
 }

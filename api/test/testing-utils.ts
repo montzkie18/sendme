@@ -87,12 +87,9 @@ export const NotificationSnapshotSerializer = {
 
 export const NotificationLogSnapshotSerializer = {
   test: (val: any) => {
-    return [,
-      'id',
-      'notification',
-      'status',
-      'dateCreated',
-    ].every((key) => !!val[key]);
+    return [, 'id', 'notification', 'status', 'dateCreated'].every(
+      (key) => !!val[key],
+    );
   },
   print: ({ notification, status }) =>
     JSON.stringify({ notification, status }, null, 2),

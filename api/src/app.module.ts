@@ -6,6 +6,7 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { NotificationModule } from './module/notifications/notification.module';
 import { SubscriptionModule } from './module/subscriptions/subscription.module';
 import { NotificationLogModule } from './module/notification-logs/notification-log.module';
+import { AuthModule } from './module/auth/auth.module';
 
 const DB_CONFIG: ConnectionOptions = {
   type: 'postgres',
@@ -27,6 +28,7 @@ const DB_CONFIG: ConnectionOptions = {
       autoLoadEntities: true,
     }),
     ConfigModule.forRoot(),
+    AuthModule,
     SubscriptionModule,
     NotificationModule,
     NotificationLogModule,
