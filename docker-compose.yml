@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=sendme
+    ports:
+      - 5432:5432
+    volumes:
+      - ./db:/var/lib/postgresql/data
+  pubsub:
+    image: messagebird/gcloud-pubsub-emulator:latest
+    environment:
+      - PUBSUB_LISTEN_ADDRESS=0.0.0.0:8681
+      - PUBSUB_PROJECT1=com_trial_sendme,trigger_webhook:webhook_subscription
+    ports:
+      - "8681:8681"
